@@ -2,7 +2,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const BASE_URLS = {
-  qauto: 'https://qauto.forstudy.space/',
+  qauto1: 'https://qauto.forstudy.space/',
   qauto2: 'https://qauto2.forstudy.space/',
 };
 
@@ -38,11 +38,11 @@ export default defineConfig({
   /* Run tests only in Google Chrome against both environments */
   projects: [
     {
-      name: 'chrome-qauto',
+      name: 'chrome-qauto1',
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
-        baseURL: BASE_URLS.qauto,
+        baseURL: BASE_URLS.qauto1,
       },
     },
     {

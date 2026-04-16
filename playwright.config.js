@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { AUTH } from './tests/auth';
 
 const BASE_URLS = {
   qauto1: 'https://qauto.forstudy.space/',
@@ -43,6 +44,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         channel: 'chrome',
         baseURL: BASE_URLS.qauto1,
+        httpCredentials: AUTH.qauto1,
       },
     },
     {
@@ -51,6 +53,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         channel: 'chrome',
         baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto1,
       },
     },
   ],

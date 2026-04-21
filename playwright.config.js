@@ -1,19 +1,25 @@
 // @ts-check
+import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
 import { AUTH } from './tests/auth';
 
-const BASE_URLS = {
-  qauto1: 'https://qauto.forstudy.space/',
-  qauto2: 'https://qauto2.forstudy.space/',
-};
+const requiredEnvVariables = [
+  'QAUTO1_BASE_URL',
+  'QAUTO2_BASE_URL',
+  'HTTP_CREDENTIALS_USERNAME',
+  'HTTP_CREDENTIALS_PASSWORD',
+];
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+for (const variableName of requiredEnvVariables) {
+  if (!process.env[variableName]) {
+    throw new Error(`Missing required environment variable: ${variableName}`);
+  }
+}
+
+const BASE_URLS = {
+  qauto1: process.env.QAUTO1_BASE_URL,
+  qauto2: process.env.QAUTO2_BASE_URL,
+};
 
 /**
  * @see https://playwright.dev/docs/test-configuration

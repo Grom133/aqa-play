@@ -9,7 +9,7 @@ test('User registration' , async ({page}) =>{
     
     await welcomePage.visit();
     await welcomePage.openSignUp();
-    await registration.register('Oleg', 'Olegov', generateEmail(), 'Welcome2qauto');   
+    await registration.register('Oleg', 'Olegov', generateEmail(), 'Welcome2qauto', 'Welcome2qauto');   
     await registration.submit();
     await expect(page).toHaveURL(/panel/);
 })

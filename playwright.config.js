@@ -82,7 +82,7 @@ export default defineConfig({
     },
     {
       name: 'auth-chrome-qauto1',
-      testMatch: /garage\.spec\.js/,
+      testMatch: /garage\.qauto1\.spec\.js/,
       dependencies: ['setup-qauto1'],
       use: {
         ...devices['Desktop Chrome'],
@@ -93,7 +93,7 @@ export default defineConfig({
     },
     {
       name: 'auth-chrome-qauto2',
-      testMatch: /garage\.spec\.js/,
+      testMatch: /garage\.qauto2\.spec\.js/,
       dependencies: ['setup-qauto2'],
       use: {
         ...devices['Desktop Chrome'],

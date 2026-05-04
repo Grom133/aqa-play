@@ -45,7 +45,24 @@ export default defineConfig({
   /* Run tests only in Google Chrome against both environments */
   projects: [
     {
+      name: 'setup-qauto1',
+      testMatch: /auth\.setup\.js/,
+      use: {
+        baseURL: BASE_URLS.qauto1,
+        httpCredentials: AUTH.qauto1,
+      },
+    },
+    {
+      name: 'setup-qauto2',
+      testMatch: /auth\.setup\.js/,
+      use: {
+        baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
+      },
+    },
+    {
       name: 'chrome-qauto1',
+      testIgnore: /garage\.spec\.js/,
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
@@ -55,11 +72,34 @@ export default defineConfig({
     },
     {
       name: 'chrome-qauto2',
+      testIgnore: /garage\.spec\.js/,
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
         baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
+      },
+    },
+    {
+      name: 'auth-chrome-qauto1',
+      testMatch: /garage\.qauto1\.spec\.js/,
+      dependencies: ['setup-qauto1'],
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        baseURL: BASE_URLS.qauto1,
         httpCredentials: AUTH.qauto1,
+      },
+    },
+    {
+      name: 'auth-chrome-qauto2',
+      testMatch: /garage\.qauto2\.spec\.js/,
+      dependencies: ['setup-qauto2'],
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
       },
     },
   ],

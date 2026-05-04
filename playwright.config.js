@@ -8,6 +8,10 @@ const requiredEnvVariables = [
   'QAUTO2_BASE_URL',
   'HTTP_CREDENTIALS_USERNAME',
   'HTTP_CREDENTIALS_PASSWORD',
+  'QAUTO1_API_USER_EMAIL',
+  'QAUTO1_API_USER_PASSWORD',
+  'QAUTO2_API_USER_EMAIL',
+  'QAUTO2_API_USER_PASSWORD',
 ];
 
 for (const variableName of requiredEnvVariables) {
@@ -62,7 +66,11 @@ export default defineConfig({
     },
     {
       name: 'chrome-qauto1',
-      testIgnore: /garage\.spec\.js/,
+      testIgnore: [
+        /auth\.setup\.js/,
+        /\.qauto1\.spec\.js$/,
+        /\.qauto2\.spec\.js$/,
+      ],
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
@@ -72,7 +80,11 @@ export default defineConfig({
     },
     {
       name: 'chrome-qauto2',
-      testIgnore: /garage\.spec\.js/,
+      testIgnore: [
+        /auth\.setup\.js/,
+        /\.qauto1\.spec\.js$/,
+        /\.qauto2\.spec\.js$/,
+      ],
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
@@ -82,7 +94,12 @@ export default defineConfig({
     },
     {
       name: 'auth-chrome-qauto1',
-      testMatch: /garage\.qauto1\.spec\.js/,
+      testMatch: /\.qauto1\.spec\.js$/,
+      testIgnore: [
+        /carCreationAPI\.qauto1\.spec\.js$/,
+        /negativeCarCreationAPI\.qauto1\.spec\.js$/,
+        /notLoggedCarCreationAPI\.qauto1\.spec\.js$/,
+      ],
       dependencies: ['setup-qauto1'],
       use: {
         ...devices['Desktop Chrome'],
@@ -93,11 +110,32 @@ export default defineConfig({
     },
     {
       name: 'auth-chrome-qauto2',
-      testMatch: /garage\.qauto2\.spec\.js/,
+      testMatch: /\.qauto2\.spec\.js$/,
+      testIgnore: [
+        /carCreationAPI\.qauto2\.spec\.js$/,
+        /negativeCarCreationAPI\.qauto2\.spec\.js$/,
+        /notLoggedCarCreationAPI\.qauto2\.spec\.js$/,
+      ],
       dependencies: ['setup-qauto2'],
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
+        baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
+      },
+    },
+    {
+      name: 'api-qauto1',
+      testMatch: /(?:carCreationAPI|negativeCarCreationAPI|notLoggedCarCreationAPI)\.qauto1\.spec\.js$/,
+      use: {
+        baseURL: BASE_URLS.qauto1,
+        httpCredentials: AUTH.qauto1,
+      },
+    },
+    {
+      name: 'api-qauto2',
+      testMatch: /(?:carCreationAPI|negativeCarCreationAPI|notLoggedCarCreationAPI)\.qauto2\.spec\.js$/,
+      use: {
         baseURL: BASE_URLS.qauto2,
         httpCredentials: AUTH.qauto2,
       },

@@ -9,8 +9,8 @@ let registration;
 test.beforeEach(async ({ page }) => {
     welcomePage = new WelcomePage(page);
     registration = new RegistrationComponent(page);
-    welcomePage.visit();
-    welcomePage.openSignUp();
+    await welcomePage.visit();
+    await welcomePage.openSignUp();
 });
 
 

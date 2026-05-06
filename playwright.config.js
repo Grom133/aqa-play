@@ -46,7 +46,7 @@ export default defineConfig({
     trace: 'on',
   },
 
-  /* Run tests only in Google Chrome against both environments */
+  /* Run tests in UI browsers against both environments plus API-only projects */
   projects: [
     {
       name: 'setup-qauto1',
@@ -120,6 +120,62 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         channel: 'chrome',
+        baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
+      },
+    },
+    {
+      name: 'firefox-qauto1',
+      testIgnore: [
+        /auth\.setup\.js/,
+        /\.qauto1\.spec\.js$/,
+        /\.qauto2\.spec\.js$/,
+      ],
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: BASE_URLS.qauto1,
+        httpCredentials: AUTH.qauto1,
+      },
+    },
+    {
+      name: 'firefox-qauto2',
+      testIgnore: [
+        /auth\.setup\.js/,
+        /\.qauto1\.spec\.js$/,
+        /\.qauto2\.spec\.js$/,
+      ],
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: BASE_URLS.qauto2,
+        httpCredentials: AUTH.qauto2,
+      },
+    },
+    {
+      name: 'auth-firefox-qauto1',
+      testMatch: /\.qauto1\.spec\.js$/,
+      testIgnore: [
+        /carCreationAPI\.qauto1\.spec\.js$/,
+        /negativeCarCreationAPI\.qauto1\.spec\.js$/,
+        /notLoggedCarCreationAPI\.qauto1\.spec\.js$/,
+      ],
+      dependencies: ['setup-qauto1'],
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: BASE_URLS.qauto1,
+        httpCredentials: AUTH.qauto1,
+      },
+    },
+    {
+      name: 'auth-firefox-qauto2',
+      testMatch: /\.qauto2\.spec\.js$/,
+      testIgnore: [
+        /carCreationAPI\.qauto2\.spec\.js$/,
+        /negativeCarCreationAPI\.qauto2\.spec\.js$/,
+        /notLoggedCarCreationAPI\.qauto2\.spec\.js$/,
+      ],
+      dependencies: ['setup-qauto2'],
+      use: {
+        ...devices['Desktop Firefox'],
         baseURL: BASE_URLS.qauto2,
         httpCredentials: AUTH.qauto2,
       },
